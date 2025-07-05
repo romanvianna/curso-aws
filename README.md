@@ -2,7 +2,7 @@
 
 Bem-vindo ao meu repositório de estudos da AWS! Este espaço é dedicado a documentar meu aprendizado, laboratórios práticos e configurações de referência para diversos serviços e arquiteturas na nuvem da Amazon Web Services.
 
-O objetivo é criar um guia de referência pessoal e um glossário de termos que possa ser consultado para reforçar o conhecimento e acelerar a implementação de soluções no futuro.
+O objetivo é criar um guia de referência pessoal e um índice que possa ser consultado para reforçar o conhecimento e acelerar a implementação de soluções no futuro.
 
 ## Estrutura do Repositório
 
@@ -20,47 +20,69 @@ A estrutura de cada módulo é a seguinte:
 
 ---
 
-## Glossário de Termos e Conceitos
+## Índice de Módulos de Estudo
 
-Aqui está um resumo dos principais conceitos abordados nos módulos de VPC.
+### Curso: VPC (Virtual Private Cloud)
 
-### 1. Fundamentos da VPC
+#### Nível: Essential
 
--   **VPC (Virtual Private Cloud):** Seu data center virtual e isolado na nuvem da AWS. É uma implementação de Rede Definida por Software (SDN) que lhe dá controle total sobre seu ambiente de rede.
--   **CIDR (Classless Inter-Domain Routing):** O bloco de endereços IP privados que define o espaço de endereçamento da sua VPC (ex: `10.0.0.0/16`).
--   **Sub-rede (Subnet):** Uma subdivisão de uma VPC. Cada sub-rede reside em uma única Zona de Disponibilidade (AZ) e é usada para agrupar recursos.
-    -   **Sub-rede Pública:** Possui uma rota em sua tabela de rotas que aponta para um Internet Gateway. Recursos nela podem ter IPs públicos.
-    -   **Sub-rede Privada:** **Não** possui uma rota para um Internet Gateway, isolando seus recursos da internet.
--   **Tabela de Rotas (Route Table):** Um conjunto de regras (rotas) que determina para onde o tráfego de rede de uma sub-rede é direcionado.
--   **Internet Gateway (IGW):** O componente que permite a comunicação entre sua VPC e a internet. Atua como um alvo de roteamento e realiza NAT 1:1 para instâncias com IPs públicos.
+-   **Módulo 01: Fundamentos da VPC**
+    -   [1.1: O que é VPC?](./vpc/essential/modulo-01-fundamentos-da-vpc/1.1-o-que-e-vpc/README.md)
+    -   [1.2: VPC Padrão](./vpc/essential/modulo-01-fundamentos-da-vpc/1.2-vpc-padrao/README.md)
+    -   [1.3: Conhecendo os Componentes](./vpc/essential/modulo-01-fundamentos-da-vpc/1.3-conhecendo-os-componentes/README.md)
+-   **Módulo 02: Conectividade e Segurança Básica**
+    -   [2.1: Revisando Security Groups](./vpc/essential/modulo-02-conectividade-e-seguranca-basica/2.1-revisando-security-groups/README.md)
+    -   [2.2: Criando as Instâncias](./vpc/essential/modulo-02-conectividade-e-seguranca-basica/2.2-criando-as-instancias/README.md)
+    -   [2.3: Conhecendo ACLs](./vpc/essential/modulo-02-conectividade-e-seguranca-basica/2.3-conhecendo-acls/README.md)
+-   **Módulo 03: Redes Públicas e Privadas**
+    -   [3.1: Criação de uma VPC](./vpc/essential/modulo-03-redes-publicas-e-privadas/3.1-criacao-de-uma-vpc/README.md)
+    -   [3.2: Usando a VPC com Instâncias](./vpc/essential/modulo-03-redes-publicas-e-privadas/3.2-usando-a-vpc-com-instancias/README.md)
+    -   [3.3: Ajustando Permissões](./vpc/essential/modulo-03-redes-publicas-e-privadas/3.3-ajustando-permissoes/README.md)
+-   **Módulo 04: Introdução ao Roteamento**
+    -   [4.1: Tabela de Rotas Básica](./vpc/essential/modulo-04-introducao-ao-roteamento/4.1-tabela-de-rotas-basica/README.md)
+    -   [4.2: Internet Gateway](./vpc/essential/modulo-04-introducao-ao-roteamento/4.2-internet-gateway/README.md)
+    -   [4.3: Introdução ao AWS CLI](./vpc/essential/modulo-04-introducao-ao-roteamento/4.3-introducao-ao-aws-cli/README.md)
 
-### 2. Segurança de Rede
+#### Nível: Advanced
 
--   **Security Group (SG):** Um firewall **stateful** (com estado) que atua no nível da instância (ENI). Nega tudo por padrão e só permite regras de `Allow`. É a principal ferramenta para controle de acesso de aplicações.
--   **Network ACL (NACL):** Um firewall **stateless** (sem estado) que atua no nível da sub-rede. Processa regras em ordem numérica e suporta regras de `Allow` e `Deny`. Ideal para blacklisting de IPs.
--   **Defesa em Profundidade:** A estratégia de usar múltiplas camadas de segurança (NACLs + SGs + Firewall de Host) para proteger os recursos.
--   **IAM Role para EC2:** O método seguro e recomendado para conceder permissões a instâncias EC2 para que elas possam acessar outros serviços da AWS, sem armazenar credenciais de longa duração.
+-   **Módulo 01: Roteamento Avançado e NAT**
+    -   [1.1: Internet Gateway vs. NAT](./vpc/advanced/modulo-01-roteamento-avancado-e-nat/1.1-internet-gateway-vs-nat/README.md)
+    -   [1.2: Expondo a Rede Privada](./vpc/advanced/modulo-01-roteamento-avancado-e-nat/1.2-expondo-a-rede-privada/README.md)
+    -   [1.3: Configurando S3](./vpc/advanced/modulo-01-roteamento-avancado-e-nat/1.3-configurando-s3/README.md)
+    -   [1.4: VPC Endpoints](./vpc/advanced/modulo-01-roteamento-avancado-e-nat/1.4-vpc-endpoints/README.md)
+-   **Módulo 02: Segurança Avançada**
+    -   [2.1: ACLs e Security Groups Avançados](./vpc/advanced/modulo-02-seguranca-avancada/2.1-acls-e-security-groups-avancados/README.md)
+    -   [2.2: Controle Granular de Acesso](./vpc/advanced/modulo-02-seguranca-avancada/2.2-controle-granular-de-acesso/README.md)
+    -   [2.3: Criptografia em Trânsito](./vpc/advanced/modulo-02-seguranca-avancada/2.3-criptografia-em-transito/README.md)
+-   **Módulo 03: Monitoramento e Logs**
+    -   [3.1: Criando Logs](./vpc/advanced/modulo-03-monitoramento-e-logs/3.1-criando-logs/README.md)
+    -   [3.2: Configurando Bastion Host](./vpc/advanced/modulo-03-monitoramento-e-logs/3.2-configurando-bastion-host/README.md)
+    -   [3.3: Monitoramento com CloudWatch](./vpc/advanced/modulo-03-monitoramento-e-logs/3.3-monitoramento-com-cloudwatch/README.md)
+-   **Módulo 04: Automação com AWS CLI e Terraform**
+    -   [4.1: AWS CLI Avançado](./vpc/advanced/modulo-04-automacao-com-aws-cli-e-terraform/4.1-aws-cli-avancado/README.md)
+    -   [4.2: Introdução ao Terraform](./vpc/advanced/modulo-04-automacao-com-aws-cli-e-terraform/4.2-introducao-ao-terraform/README.md)
+    -   [4.3: Templates Terraform Avançados](./vpc/advanced/modulo-04-automacao-com-aws-cli-e-terraform/4.3-templates-terraform-avancados/README.md)
 
-### 3. Conectividade
+#### Nível: Plus
 
--   **NAT Gateway:** Um serviço gerenciado que permite que instâncias em uma sub-rede privada iniciem conexões de saída para a internet, mas impede conexões de entrada não solicitadas.
--   **VPC Endpoints:** Permitem conectar sua VPC a serviços da AWS de forma privada, sem que o tráfego passe pela internet.
-    -   **Gateway Endpoint:** Para S3 e DynamoDB. Gratuito e baseado em roteamento.
-    -   **Interface Endpoint (PrivateLink):** Para a maioria dos outros serviços. Cria uma ENI na sua sub-rede e tem um custo por hora.
--   **VPC Peering:** Conecta duas VPCs de forma privada, 1-para-1. Não é transitivo.
--   **Transit Gateway (TGW):** Um roteador de nuvem centralizado que atua como um hub para conectar centenas de VPCs e redes on-premises de forma escalável (modelo Hub-and-Spoke).
--   **Site-to-Site VPN:** Cria um túnel IPsec criptografado através da internet para conectar sua VPC a uma rede on-premises.
--   **Direct Connect (DX):** Fornece uma conexão de fibra óptica privada e dedicada entre seu data center e a AWS.
-
-### 4. Automação e Gerenciamento
-
--   **AWS CLI:** A Interface de Linha de Comando para gerenciar recursos da AWS de forma programática. Essencial para automação e scripting.
--   **Terraform (IaC):** A principal ferramenta de Infraestrutura como Código (IaC) para definir e provisionar infraestrutura de forma declarativa, consistente e repetível.
--   **GitOps:** Um modelo operacional que usa um repositório Git como a única fonte da verdade para a infraestrutura, automatizando o provisionamento através de pipelines de CI/CD.
--   **AWS Organizations:** Serviço para gerenciar centralmente um ambiente com múltiplas contas AWS, aplicando políticas de governança com SCPs.
--   **AWS Config:** Um serviço para auditoria contínua que monitora a configuração dos seus recursos e os avalia em relação a regras de conformidade.
--   **Amazon GuardDuty:** Um serviço de detecção de ameaças que usa Machine Learning para identificar atividades maliciosas em sua conta.
--   **AWS Security Hub:** Centraliza e prioriza alertas de segurança de múltiplos serviços (GuardDuty, Inspector, etc.) e verifica a conformidade com padrões como o CIS Benchmark.
+-   **Módulo 01: Conectividade Multi-VPC**
+    -   [1.1: VPC Peering](./vpc/plus/modulo-01-conectividade-multi-vpc/1.1-vpc-peering/README.md)
+    -   [1.2: Transit Gateway](./vpc/plus/modulo-01-conectividade-multi-vpc/1.2-transit-gateway/README.md)
+    -   [1.3: AWS Direct Connect](./vpc/plus/modulo-01-conectividade-multi-vpc/1.3-aws-direct-connect/README.md)
+    -   [1.4: Site-to-Site VPN](./vpc/plus/modulo-01-conectividade-multi-vpc/1.4-site-to-site-vpn/README.md)
+-   **Módulo 02: Arquiteturas Enterprise**
+    -   [2.1: Multi-Account Strategy](./vpc/plus/modulo-02-arquiteturas-enterprise/2.1-multi-account-strategy/README.md)
+    -   [2.2: Shared Services VPC](./vpc/plus/modulo-02-arquiteturas-enterprise/2.2-shared-services-vpc/README.md)
+    -   [2.3: Disaster Recovery](./vpc/plus/modulo-02-arquiteturas-enterprise/2.3-disaster-recovery/README.md)
+-   **Módulo 03: Segurança Enterprise**
+    -   [3.1: Network Firewall](./vpc/plus/modulo-03-seguranca-enterprise/3.1-network-firewall/README.md)
+    -   [3.2: GuardDuty e Security Hub](./vpc/plus/modulo-03-seguranca-enterprise/3.2-guardduty-e-security-hub/README.md)
+    -   [3.3: Compliance e Auditoria](./vpc/plus/modulo-03-seguranca-enterprise/3.3-compliance-e-auditoria/README.md)
+-   **Módulo 04: Otimização e Troubleshooting**
+    -   [4.1: Performance Tuning](./vpc/plus/modulo-04-otimizacao-e-troubleshooting/4.1-performance-tuning/README.md)
+    -   [4.2: Cost Optimization](./vpc/plus/modulo-04-otimizacao-e-troubleshooting/4.2-cost-optimization/README.md)
+    -   [4.3: Troubleshooting Avançado](./vpc/plus/modulo-04-otimizacao-e-troubleshooting/4.3-troubleshooting-avancado/README.md)
+    -   [4.4: Automation at Scale](./vpc/plus/modulo-04-otimizacao-e-troubleshooting/4.4-automation-at-scale/README.md)
 
 ---
 
