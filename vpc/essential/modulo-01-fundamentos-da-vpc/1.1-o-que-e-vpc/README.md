@@ -1,0 +1,3 @@
+# O que é VPC?
+
+Uma Virtual Private Cloud (VPC) é um serviço da AWS que permite provisionar uma seção logicamente isolada da Nuvem AWS, onde você pode executar recursos da AWS em uma rede virtual que você define. Você tem controle total sobre seu ambiente de rede virtual, incluindo a seleção de seu próprio intervalo de endereços IP, criação de sub-redes e configuração de tabelas de rotas e gateways de rede.

@@ -1,0 +1,3 @@
+# Shared Services VPC
+
+Uma Shared Services VPC é uma VPC centralizada que hospeda serviços que são compartilhados por várias outras VPCs ou contas. Isso pode incluir serviços como Active Directory, ferramentas de monitoramento, servidores de log, ou qualquer outro recurso que precise ser acessível de forma consistente em toda a sua organização. Isso ajuda a reduzir a duplicação de recursos e simplifica o gerenciamento.

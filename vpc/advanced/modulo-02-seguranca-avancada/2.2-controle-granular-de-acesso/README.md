@@ -1,0 +1,3 @@
+# Controle Granular de Acesso
+
+O controle granular de acesso refere-se à capacidade de definir permissões muito específicas para usuários e serviços, garantindo que eles tenham apenas o nível de acesso necessário para realizar suas tarefas. No contexto da AWS, isso é feito principalmente através do AWS Identity and Access Management (IAM), usando políticas que definem ações permitidas ou negadas em recursos específicos.
