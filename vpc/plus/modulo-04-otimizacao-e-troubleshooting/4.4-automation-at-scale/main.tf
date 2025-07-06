@@ -1,87 +1,84 @@
-resource "aws_codepipeline" "example" {
-  name     = "MyVpcPipeline"
-  role_arn = aws_iam_role.codepipeline_role.arn
+# --- Exemplo de provisionamento via Terraform para Automação em Escala com GitOps ---
 
-  artifact_store {
-    location = aws_s3_bucket.codepipeline_bucket.bucket
-    type     = "S3"
-  }
+# Este arquivo contém uma configuração Terraform simples que seria gerenciada
+# por um pipeline de CI/CD (GitOps). O objetivo é demonstrar como as alterações
+# no código Git se traduzem em alterações na infraestrutura da AWS de forma automatizada.
 
-  stage {
-    name = "Source"
-
-    action {
-      name             = "Source"
-      category         = "Source"
-      owner            = "AWS"
-      provider         = "CodeCommit"
-      version          = "1"
-      output_artifacts = ["source_output"]
-
-      configuration = {
-        RepositoryName = "my-vpc-repo"
-        BranchName     = "main"
-      }
-    }
-  }
-
-  stage {
-    name = "Deploy"
-
-    action {
-      name            = "Deploy"
-      category        = "Deploy"
-      owner           = "AWS"
-      provider        = "CloudFormation"
-      input_artifacts = ["source_output"]
-      version         = "1"
-
-      configuration = {
-        ActionMode = "CREATE_UPDATE"
-        StackName  = "MyVpcStack"
-        TemplatePath = "source_output::template.yaml"
-      }
+# Bloco de configuração do Terraform para especificar o provedor AWS
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0" # Use a versão mais recente compatível
     }
   }
 }
 
-resource "aws_s3_bucket" "codepipeline_bucket" {
-  bucket = "my-codepipeline-bucket-unique"
+# Configuração do provedor AWS
+provider "aws" {
+  region = "us-east-1" # Defina a região da AWS
 }
 
-resource "aws_iam_role" "codepipeline_role" {
-  name = "codepipeline-role"
+# 1. Recurso: VPC
+# Esta VPC será o recurso de exemplo gerenciado pelo pipeline GitOps.
+resource "aws_vpc" "gitops_demo_vpc" {
+  cidr_block = "10.60.0.0/16"
 
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Principal = {
-          Service = "codepipeline.amazonaws.com"
-        }
-      },
-    ]
-  })
+  tags = {
+    Name        = "GitOps-Demo-VPC"
+    Environment = "Development"
+    ManagedBy   = "Terraform-GitOps"
+  }
 }
 
-resource "aws_iam_role_policy" "codepipeline_policy" {
-  name = "codepipeline-policy"
-  role = aws_iam_role.codepipeline_role.id
+# 2. Recurso: Sub-rede Pública
+resource "aws_subnet" "gitops_demo_subnet" {
+  vpc_id                  = aws_vpc.gitops_demo_vpc.id
+  cidr_block              = "10.60.1.0/24"
+  availability_zone       = "us-east-1a" # Escolha uma AZ na sua região
+  map_public_ip_on_launch = true
 
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = [
-          "s3:*",
-          "codecommit:*",
-          "cloudformation:*"
-        ]
-        Effect   = "Allow"
-        Resource = "*"
-      },
-    ]
-  })
+  tags = {
+    Name = "GitOps-Demo-Public-Subnet"
+  }
+}
+
+# 3. Recurso: Internet Gateway
+resource "aws_internet_gateway" "gitops_demo_igw" {
+  vpc_id = aws_vpc.gitops_demo_vpc.id
+
+  tags = {
+    Name = "GitOps-Demo-IGW"
+  }
+}
+
+# 4. Recurso: Tabela de Rotas Pública
+resource "aws_route_table" "gitops_demo_rt" {
+  vpc_id = aws_vpc.gitops_demo_vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.gitops_demo_igw.id
+  }
+
+  tags = {
+    Name = "GitOps-Demo-RT"
+  }
+}
+
+# 5. Recurso: Associação da Tabela de Rotas à Sub-rede Pública
+resource "aws_route_table_association" "gitops_demo_subnet_association" {
+  subnet_id      = aws_subnet.gitops_demo_subnet.id
+  route_table_id = aws_route_table.gitops_demo_rt.id
+}
+
+# Saídas (Outputs) para facilitar a verificação
+output "gitops_vpc_id" {
+  description = "The ID of the VPC managed by GitOps"
+  value       = aws_vpc.gitops_demo_vpc.id
+}
+
+output "gitops_public_subnet_id" {
+  description = "The ID of the public subnet managed by GitOps"
+  value       = aws_subnet.gitops_demo_subnet.id
 }
