@@ -20,6 +20,12 @@ A estrutura de cada módulo é a seguinte:
 
 ---
 
+## Planos de Curso
+
+- [Plano de Curso - AWS VPC: Do Essencial ao Avançado (8 Aulas)](./README-CURSO-ADVANCED.md)
+
+---
+
 ## Índice de Módulos de Estudo
 
 ### Curso: VPC (Virtual Private Cloud)
